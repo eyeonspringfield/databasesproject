@@ -1,4 +1,4 @@
-package org.personal.markcs;
+package org.personal.markcs.Control;
 
 import java.io.IOException;
 
@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.personal.markcs.App;
 
 public class PrimaryController {
     @FXML

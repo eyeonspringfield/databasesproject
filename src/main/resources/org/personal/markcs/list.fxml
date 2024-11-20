@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:controller="org.personal.markcs.ListController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="org.personal.markcs.Control.ListController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <MenuBar>
             <menus>

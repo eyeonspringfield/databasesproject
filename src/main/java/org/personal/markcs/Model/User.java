@@ -1,5 +1,6 @@
 package org.personal.markcs.Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -10,14 +11,27 @@ public class User {
     private int taxID;
     private String address;
     private String phone;
-    private Date birthdate;
+    private LocalDate birthdate;
     private String mothersMaidenName;
     private boolean isLoggedIn;
-    private Date lastLogin;
+    private LocalDate lastLogin;
     private String role;
 
-    public User(int ID, String name, String password, int taxID, String address, String phone, Date birthdate, String mothersMaidenName, boolean isLoggedIn, Date lastLogin, String role) {
+    public User(int ID, String name, String password, int taxID, String address, String phone, LocalDate birthdate, String mothersMaidenName, boolean isLoggedIn, LocalDate lastLogin, String role) {
         this.ID = ID;
+        this.name = name;
+        this.password = password;
+        this.taxID = taxID;
+        this.address = address;
+        this.phone = phone;
+        this.birthdate = birthdate;
+        this.mothersMaidenName = mothersMaidenName;
+        this.isLoggedIn = isLoggedIn;
+        this.lastLogin = lastLogin;
+        this.role = role;
+    }
+
+    public User(String name, String password, int taxID, String address, String phone, LocalDate birthdate, String mothersMaidenName, boolean isLoggedIn, LocalDate lastLogin, String role) {
         this.name = name;
         this.password = password;
         this.taxID = taxID;
@@ -78,11 +92,11 @@ public class User {
         this.phone = phone;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -102,11 +116,11 @@ public class User {
         isLoggedIn = loggedIn;
     }
 
-    public Date getLastLogin() {
+    public LocalDate getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(LocalDate lastLogin) {
         this.lastLogin = lastLogin;
     }
 
