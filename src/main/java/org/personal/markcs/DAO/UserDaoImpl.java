@@ -14,8 +14,7 @@ public class UserDaoImpl implements UserDaoInterface {
         String query = "select * from felhasznalo where nev = ?";
         try {
             Connection con = DriverManager.getConnection(url, "root", "");
-            con.prepareStatement(query);
-
+            stmt = con.prepareStatement(query);
             stmt.setString(1, name);
 
             rs = stmt.executeQuery();
@@ -78,7 +77,7 @@ public class UserDaoImpl implements UserDaoInterface {
 
     @Override
     public boolean setOnline(String name) {
-        String query = "update felhasznalo set bejelentkezve = true where nev = ?";
+        String query = "update felhasznalo set bejelentkezve = true, utolso_belepes_idopontja = current_date where nev = ?";
         try {
             Connection con = DriverManager.getConnection(url, "root", "");
             stmt = con.prepareStatement(query);

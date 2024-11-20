@@ -6,14 +6,14 @@ import java.util.List;
 public class Plot {
 
     private List<RealEstate> realEstates;
-    private int plotNumber;
+    private String plotNumber;
     private String type;
     private int size;
     private int approxValue;
     private Date dateOfPurchase;
     private float amountOfOwnership;
 
-    public Plot(List<RealEstate> realEstates, int plotNumber, String type, int size, int approxValue, Date dateOfPurchase, float amountOfOwnership) {
+    public Plot(List<RealEstate> realEstates, String plotNumber, String type, int size, int approxValue, Date dateOfPurchase, float amountOfOwnership) {
         this.realEstates = realEstates;
         this.plotNumber = plotNumber;
         this.type = type;
@@ -31,11 +31,11 @@ public class Plot {
         this.realEstates = realEstates;
     }
 
-    public int getPlotNumber() {
+    public String getPlotNumber() {
         return plotNumber;
     }
 
-    public void setPlotNumber(int plotNumber) {
+    public void setPlotNumber(String plotNumber) {
         this.plotNumber = plotNumber;
     }
 

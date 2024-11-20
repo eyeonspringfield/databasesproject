@@ -4,6 +4,7 @@ module org.personal.markcs {
     requires java.sql;
     requires mysql.connector.j;
     requires jbcrypt;
+    requires jdk.jshell;
 
     opens org.personal.markcs to javafx.fxml;
     exports org.personal.markcs;

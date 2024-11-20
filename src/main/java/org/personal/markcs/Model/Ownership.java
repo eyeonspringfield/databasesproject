@@ -1,5 +1,6 @@
 package org.personal.markcs.Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Ownership {
@@ -7,9 +8,9 @@ public class Ownership {
     private Plot plot;
     private RealEstate realEstate;
     private double partOfOwnership;
-    private Date dateOfPurchase;
+    private LocalDate dateOfPurchase;
 
-    public Ownership(User user, Plot plot, RealEstate realEstate, double partOfOwnership, Date dateOfPurchase) {
+    public Ownership(User user, Plot plot, RealEstate realEstate, double partOfOwnership, LocalDate dateOfPurchase) {
         this.user = user;
         this.plot = plot;
         this.realEstate = realEstate;
@@ -49,11 +50,11 @@ public class Ownership {
         this.partOfOwnership = partOfOwnership;
     }
 
-    public Date getDateOfPurchase() {
+    public LocalDate getDateOfPurchase() {
         return dateOfPurchase;
     }
 
-    public void setDateOfPurchase(Date dateOfPurchase) {
+    public void setDateOfPurchase(LocalDate dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
     }
 }

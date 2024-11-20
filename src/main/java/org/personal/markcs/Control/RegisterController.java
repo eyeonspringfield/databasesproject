@@ -72,7 +72,7 @@ public class RegisterController {
                 motherName.getText(),
                 true,
                 LocalDate.now(),
-                "user"
+                "owner"
         );
 
         boolean success = dao.addUser(user);
@@ -82,7 +82,7 @@ public class RegisterController {
             alert.setHeaderText(null);
             alert.setTitle("Sikeres regisztráció");
             alert.setContentText("Sikeres regisztráció!");
-            App.setRoot("list");
+            App.setRoot("primary");
         }
     }
 }
