@@ -32,12 +32,12 @@ public class PlotDaoImpl implements PlotDaoInterface{
     }
 
     @Override
-    public Plot getPlotById(int id) {
+    public Plot getPlotByPlotNumber(String id) {
         String query = "select * from telek where helyrajzi_szam = ?";
         try{
             Connection con = DriverManager.getConnection(url, "root", "");
             stmt = con.prepareStatement(query);
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             rs = stmt.executeQuery();
 
             Plot plot = null;

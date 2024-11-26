@@ -49,7 +49,7 @@ public class RealEstateDaoImpl implements RealEstateDaoInterface{
             RealEstate realEstate = null;
             if (rs.next()) {
                 realEstate = new RealEstate(
-                        plotDao.getPlotById(rs.getInt("ingatlan_azonosito")),
+                        plotDao.getPlotByPlotNumber(rs.getString("ingatlan_azonosito")),
                         rs.getString("jelleg"),
                         rs.getInt("epites_eve"),
                         rs.getInt("iranyitoszam"),

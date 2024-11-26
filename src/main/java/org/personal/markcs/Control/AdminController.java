@@ -112,14 +112,14 @@ public class AdminController {
             return;
         }
 
-        if(plotDao.getPlotById(Integer.parseInt(rePlotId.getText())) == null){
+        if(plotDao.getPlotByPlotNumber(rePlotId.getText()) == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Nincs ilyen ID-vel rendelkező telek!");
+            alert.setContentText("Nincs ilyen helyrajzi számmal rendelkező telek!");
         }
 
-        Plot plot = plotDao.getPlotById(Integer.parseInt(rePlotId.getText()));
+        Plot plot = plotDao.getPlotByPlotNumber(rePlotId.getText());
 
         RealEstate realEstate = new RealEstate(
                 plot,

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PlotDaoInterface {
     public boolean addPlot(Plot plot);
-    public Plot getPlotById(int id);
+    public Plot getPlotByPlotNumber(String id);
     public List<Plot> getAllPlots();
 }

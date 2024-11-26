@@ -32,23 +32,23 @@
         <Label layoutX="64.0" layoutY="110.0" text="Születési dátum:" />
         <Label layoutX="387.0" layoutY="110.0" text="Anyja neve:" />
         <Button layoutX="175.0" layoutY="136.0" mnemonicParsing="false" text="Adatok módosítása" />
-        <TableView layoutX="37.0" layoutY="187.0" prefHeight="345.0" prefWidth="538.0">
+        <TableView fx:id="reTable" layoutX="37.0" layoutY="187.0" prefHeight="345.0" prefWidth="538.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="Jelleg" />
-                <TableColumn prefWidth="75.0" text="Építés éve" />
-                <TableColumn prefWidth="79.20002746582031" text="Irányítószám" />
-                <TableColumn prefWidth="71.20001220703125" text="Település" />
-                <TableColumn prefWidth="121.60003662109375" text="Közterület, házszám" />
-                <TableColumn prefWidth="88.7999267578125" text="Becsült érték" />
+                <TableColumn fx:id="reTypeCol" prefWidth="75.0" text="Jelleg" />
+                <TableColumn fx:id="reBuildYearCol" prefWidth="75.0" text="Építés éve" />
+                <TableColumn fx:id="rePostalCodeCol" prefWidth="79.20002746582031" text="Irányítószám" />
+                <TableColumn fx:id="reSettlementCol" prefWidth="71.20001220703125" text="Település" />
+                <TableColumn fx:id="reHouseAndStreetCol" prefWidth="121.60003662109375" text="Közterület, házszám" />
+                <TableColumn fx:id="reApproxValueCol" prefWidth="88.7999267578125" text="Becsült érték" />
             </columns>
         </TableView>
         <Label layoutX="738.0" layoutY="56.0" text="Telkek" />
-        <TableView layoutX="586.0" layoutY="74.0" prefHeight="460.0" prefWidth="338.0">
+        <TableView fx:id="plotTable" layoutX="586.0" layoutY="74.0" prefHeight="460.0" prefWidth="338.0">
             <columns>
-                <TableColumn prefWidth="86.4000244140625" text="Helyrajzi szám" />
-                <TableColumn prefWidth="64.0" text="Jelleg" />
-                <TableColumn prefWidth="75.0" text="Méret" />
-                <TableColumn prefWidth="84.7999267578125" text="Becsült érték" />
+                <TableColumn fx:id="plotIdCol" prefWidth="86.4000244140625" text="Helyrajzi szám" />
+                <TableColumn fx:id="plotTypeCol" prefWidth="64.0" text="Jelleg" />
+                <TableColumn fx:id="plotSizeCol" prefWidth="75.0" text="Méret" />
+                <TableColumn fx:id="plotApproxValueCol" prefWidth="84.7999267578125" text="Becsült érték" />
             </columns>
         </TableView>
         <Label layoutX="278.0" layoutY="169.0" text="Ingatlanok" />
