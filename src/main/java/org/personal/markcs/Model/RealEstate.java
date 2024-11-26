@@ -8,14 +8,24 @@ public class RealEstate {
     private int ID;
     private Plot plot;
     private String type;
-    private Date timeOfConstruction;
+    private int timeOfConstruction;
     private int postalCode;
     private String settlement;
     private String streetAndHouseNumber;
     private int approxValue;
 
-    public RealEstate(int ID, Plot plot, String type, Date timeOfConstruction, int postalCode, String settlement, String streetAndHouseNumber, int approxValue) {
+    public RealEstate(int ID, Plot plot, String type, int timeOfConstruction, int postalCode, String settlement, String streetAndHouseNumber, int approxValue) {
         this.ID = ID;
+        this.plot = plot;
+        this.type = type;
+        this.timeOfConstruction = timeOfConstruction;
+        this.postalCode = postalCode;
+        this.settlement = settlement;
+        this.streetAndHouseNumber = streetAndHouseNumber;
+        this.approxValue = approxValue;
+    }
+
+    public RealEstate(Plot plot, String type, int timeOfConstruction, int postalCode, String settlement, String streetAndHouseNumber, int approxValue) {
         this.plot = plot;
         this.type = type;
         this.timeOfConstruction = timeOfConstruction;
@@ -49,11 +59,11 @@ public class RealEstate {
         this.type = type;
     }
 
-    public Date getTimeOfConstruction() {
+    public int getTimeOfConstruction() {
         return timeOfConstruction;
     }
 
-    public void setTimeOfConstruction(Date timeOfConstruction) {
+    public void setTimeOfConstruction(int timeOfConstruction) {
         this.timeOfConstruction = timeOfConstruction;
     }
 

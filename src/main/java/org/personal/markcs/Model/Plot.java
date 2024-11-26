@@ -23,6 +23,13 @@ public class Plot {
         this.amountOfOwnership = amountOfOwnership;
     }
 
+    public Plot(String plotNumber, String type, int size, int approxValue) {
+        this.plotNumber = plotNumber;
+        this.type = type;
+        this.size = size;
+        this.approxValue = approxValue;
+    }
+
     public List<RealEstate> getRealEstates() {
         return realEstates;
     }

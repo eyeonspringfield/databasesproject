@@ -1,6 +1,7 @@
 package org.personal.markcs.DAO;
 
 import org.personal.markcs.Model.Plot;
+import org.personal.markcs.Model.User;
 
 import java.sql.*;
 import java.util.List;
@@ -32,6 +33,27 @@ public class PlotDaoImpl implements PlotDaoInterface{
 
     @Override
     public Plot getPlotById(int id) {
+        String query = "select * from telek where helyrajzi_szam = ?";
+        try{
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+
+            Plot plot = null;
+            if (rs.next()) {
+                plot = new Plot(
+                        rs.getString("helyrajzi_szam"),
+                        rs.getString("jelleg"),
+                        rs.getInt("meret"),
+                        rs.getInt("becsult_ertek")
+                );
+            }
+
+            return plot;
+        }catch(Exception e ) {
+            e.printStackTrace();
+        }
         return null;
     }
 

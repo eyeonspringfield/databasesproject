@@ -10,6 +10,8 @@ public class Ownership {
     private double partOfOwnership;
     private LocalDate dateOfPurchase;
 
+    public Ownership(){}
+
     public Ownership(User user, Plot plot, RealEstate realEstate, double partOfOwnership, LocalDate dateOfPurchase) {
         this.user = user;
         this.plot = plot;

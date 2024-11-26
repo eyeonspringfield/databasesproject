@@ -64,23 +64,26 @@
             <TextField fx:id="reDateOfBuilding" promptText="Építés éve" />
             <TextField fx:id="rePostalCode" promptText="Irányítószám" />
             <TextField fx:id="reSettlement" promptText="Település" />
-            <TextField fx:id="reStreeAndHouse" promptText="Közterület és házszám" />
+            <TextField fx:id="reStreetAndHouse" promptText="Közterület és házszám" />
             <TextField fx:id="reApproxValue" promptText="Becsült érték (HUF)" />
             <TextField fx:id="reNameOfOwner" promptText="Tulaj. felhasználóneve" />
             <TextField fx:id="rePercentOfOwnership" promptText="Tulajdoni hányad (0-1)" />
             <TextField fx:id="rePlotId" promptText="Telek hrsz." />
+            <DatePicker fx:id="reDateOfPurchase" promptText="Tulaj.ba kerülés dátuma" />
          </children>
       </VBox>
-      <Button layoutX="403.0" layoutY="281.0" mnemonicParsing="false" text="Ingatlan bejegyzése" />
+      <Button layoutX="403.0" layoutY="318.0" mnemonicParsing="false" onAction="#addRealEstate" text="Ingatlan bejegyzése" />
       <VBox layoutX="630.0" layoutY="10.0" prefHeight="274.0" prefWidth="180.0" spacing="5.0">
          <children>
             <TextField fx:id="plotNumber" promptText="Helyrajzi szám" />
+            <TextField fx:id="plotType" promptText="Jelleg" />
             <TextField fx:id="plotSize" promptText="Méret (négyzetméter)" />
             <TextField fx:id="plotApproxValue" promptText="Becsült érték (HUF)" />
             <TextField fx:id="plotOwnerName" promptText="Tulaj. felhasználóneve" />
             <TextField fx:id="plotPercentOfOwnership" promptText="Tulajdoni hányad (0-1)" />
+            <DatePicker fx:id="plotDateOfPurchase" promptText="Tulaj.ba kerülés dátuma" />
          </children>
       </VBox>
-      <Button layoutX="667.0" layoutY="281.0" mnemonicParsing="false" text="Telek bejegyzése" />
+      <Button layoutX="667.0" layoutY="281.0" mnemonicParsing="false" onAction="#addPlot" text="Telek bejegyzése" />
     </children>
 </AnchorPane>
