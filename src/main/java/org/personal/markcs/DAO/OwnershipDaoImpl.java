@@ -2,7 +2,6 @@ package org.personal.markcs.DAO;
 
 import org.personal.markcs.Model.Ownership;
 import org.personal.markcs.Model.OwnershipType;
-import org.personal.markcs.Model.Plot;
 import org.personal.markcs.Model.User;
 
 import java.sql.*;
@@ -85,6 +84,56 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
 
     @Override
     public List<Ownership> getAllOwnerships() {
-        return List.of();
+        List<Ownership> result = new ArrayList<Ownership>();
+        String query = "select * from tulajdon";
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                Ownership ownership = new Ownership();
+                ownership.setUser(userDao.getUserByTaxId(rs.getInt("adoszam")));
+                ownership.setPlot(plotDao.getPlotByPlotNumber(rs.getString("helyrajzi_szam")));
+                if(rs.getInt("ingatlan_azonosito") != 0) {
+                    ownership.setRealEstate(realEstateDao.getRealEstateById(rs.getInt("ingatlan_azonosito")));
+                }
+                ownership.setDateOfPurchase(rs.getDate("tulajdonba_kerules_datuma").toLocalDate());
+                ownership.setPartOfOwnership(rs.getInt("tulajdoni_hanyad"));
+                result.add(ownership);
+            }
+            return result;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Ownership getOwnershipByRealEstateId(int realEstateId) {
+        String query = "select * from tulajdon where ingatlan_azonosito = ?";
+        try{
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, realEstateId);
+            rs = stmt.executeQuery();
+            Ownership ownership = new Ownership();
+            if(rs.next()) {
+                ownership.setUser(userDao.getUserByTaxId(rs.getInt("adoszam")));
+                ownership.setPlot(plotDao.getPlotByPlotNumber(rs.getString("helyrajzi_szam")));
+                ownership.setRealEstate(realEstateDao.getRealEstateById(rs.getInt("ingatlan_azonosito")));
+                ownership.setDateOfPurchase(rs.getDate("tulajdonba_kerules_datuma").toLocalDate());
+                ownership.setPartOfOwnership(rs.getInt("tulajdoni_hanyad"));
+            }
+            return ownership;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Ownership getOwnershipByPlotNumber(String plotNumber) {
+        // Fetch Ownership record where plot number matches the given plot.
+        // Implementation depends on your query structure.
+        return null;
     }
 }

@@ -2,51 +2,24 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.personal.markcs.Control.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.personal.markcs.Control.PrimaryController">
    <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <Label layoutX="413.0" layoutY="26.0" prefHeight="50.0" prefWidth="133.0" text="IngatlanSzeged.hu">
+      <Label layoutX="533.0" layoutY="169.0" prefHeight="50.0" prefWidth="133.0" text="IngatlanSzeged.hu">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="username" layoutX="406.0" layoutY="105.0" promptText="Felhasználónév" />
-      <PasswordField fx:id="password" layoutX="406.0" layoutY="151.0" promptText="Jelszó" />
-      <Button layoutX="385.0" layoutY="205.0" mnemonicParsing="false" onAction="#logIn" text="Bejelentkezés" />
-      <TableView layoutX="16.0" layoutY="270.0" prefHeight="263.0" prefWidth="927.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
-      <Button layoutX="495.0" layoutY="205.0" mnemonicParsing="false" onAction="#register" text="Regisztráció" />
+      <TextField fx:id="username" layoutX="525.0" layoutY="245.0" promptText="Felhasználónév" />
+      <PasswordField fx:id="password" layoutX="525.0" layoutY="288.0" promptText="Jelszó" />
+      <Button layoutX="489.0" layoutY="340.0" mnemonicParsing="false" onAction="#logIn" text="Bejelentkezés" />
+      <Button layoutX="635.0" layoutY="340.0" mnemonicParsing="false" onAction="#register" text="Regisztráció" />
+      <Button layoutX="571.0" layoutY="401.0" mnemonicParsing="false" onAction="#closeApp" text="Bezárás" />
+      <ProgressIndicator fx:id="progressIndicator" layoutX="573.0" layoutY="477.0" prefHeight="89.0" prefWidth="120.0" visible="false" />
    </children>
 </AnchorPane>

@@ -53,13 +53,6 @@ public class ListController {
     @FXML
     private TableColumn<Plot, Integer> plotApproxValueCol;
 
-    /*
-    plotIdCol" prefWidth="86.4000244140625" text="Helyrajzi szám" />
-                <TableColumn fx:id="plotTypeCol" prefWidth="64.0" text="Jelleg" />
-                <TableColumn fx:id="plotSizeCol" prefWidth="75.0" text="Méret" />
-                <TableColumn fx:id="plotApproxValueCol"
-     */
-
     private UserDaoImpl dao = new UserDaoImpl();
     private OwnershipDaoImpl ownershipDao = new OwnershipDaoImpl();
     private PlotDaoImpl plotDao = new PlotDaoImpl();
@@ -114,6 +107,11 @@ public class ListController {
 
 
         //TODO tableview initialization
+    }
+
+    @FXML
+    private void editUserData() throws IOException {
+        App.setRoot("editUserData");
     }
 
     @FXML

@@ -30,6 +30,10 @@ public class Plot {
         this.approxValue = approxValue;
     }
 
+    public Plot(){
+
+    }
+
     public List<RealEstate> getRealEstates() {
         return realEstates;
     }

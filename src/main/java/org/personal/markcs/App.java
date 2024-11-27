@@ -1,6 +1,7 @@
 package org.personal.markcs;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,13 +19,22 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 960, 540);
+        scene = new Scene(loadFXML("primary"), 1200, 675);
         stage.setScene(scene);
         stage.show();
     }
 
     public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        new Thread(() -> {
+            try {
+                Parent newRoot = loadFXML(fxml);
+                Platform.runLater(() -> {
+                    scene.setRoot(newRoot);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

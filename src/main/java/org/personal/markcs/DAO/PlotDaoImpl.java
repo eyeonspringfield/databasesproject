@@ -61,4 +61,18 @@ public class PlotDaoImpl implements PlotDaoInterface{
     public List<Plot> getAllPlots() {
         return List.of();
     }
+
+    public boolean deletePlot(Plot plot) {
+        String query = "delete from telek where helyrajzi_szam = ?";
+        try{
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, plot.getPlotNumber());
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

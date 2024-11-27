@@ -3,6 +3,8 @@ package org.personal.markcs.DAO;
 import org.personal.markcs.Model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDaoImpl implements UserDaoInterface {
     PreparedStatement stmt;
@@ -44,7 +46,68 @@ public class UserDaoImpl implements UserDaoInterface {
     }
 
     @Override
-    public User getUserById(int id) {
+    public User getUserByTaxId(int id) {
+        String query = "select * from felhasznalo where adoszam = ?";
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+
+            rs = stmt.executeQuery();
+
+            User user = null;
+            if (rs.next()) {
+                user = new User(
+                        rs.getInt("azonosito"),
+                        rs.getString("nev"),
+                        rs.getString("jelszo"),
+                        rs.getInt("adoszam"),
+                        rs.getString("lakcim"),
+                        rs.getString("telefonszam"),
+                        rs.getDate("szuletesi_datum").toLocalDate(),
+                        rs.getString("anyja_neve"),
+                        rs.getBoolean("bejelentkezve"),
+                        rs.getDate("utolso_belepes_idopontja").toLocalDate(),
+                        rs.getString("szerepkor")
+                );
+            }
+            con.close();
+            return user;
+        }catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<User>();
+        String query = "select * from felhasznalo";
+        try{
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("azonosito"),
+                        rs.getString("nev"),
+                        rs.getString("jelszo"),
+                        rs.getInt("adoszam"),
+                        rs.getString("lakcim"),
+                        rs.getString("telefonszam"),
+                        rs.getDate("szuletesi_datum").toLocalDate(),
+                        rs.getString("anyja_neve"),
+                        rs.getBoolean("bejelentkezve"),
+                        rs.getDate("utolso_belepes_idopontja").toLocalDate(),
+                        rs.getString("szerepkor")
+                );
+                users.add(user);
+            }
+            return users;
+        }catch(Exception e ) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -70,6 +133,37 @@ public class UserDaoImpl implements UserDaoInterface {
 
             return rowsAffected > 0;
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        String query = "update felhasznalo set nev = ?, " +
+                "jelszo = ?, " +
+                "adoszam = ?, " +
+                "lakcim = ?, " +
+                "telefonszam = ?, " +
+                "szuletesi_datum = ?, " +
+                "anyja_neve = ? " +
+                "where nev = ?";
+        try{
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getPassword());
+            stmt.setInt(3, user.getTaxID());
+            stmt.setString(4, user.getAddress());
+            stmt.setString(5, user.getPhone());
+            stmt.setDate(6, Date.valueOf(user.getBirthdate()));
+            stmt.setString(7, user.getMothersMaidenName());
+            stmt.setString(8, user.getName());
+
+            int rowsAffected = stmt.executeUpdate();
+
+            return rowsAffected > 0;
+        }catch(Exception e ) {
             e.printStackTrace();
         }
         return false;

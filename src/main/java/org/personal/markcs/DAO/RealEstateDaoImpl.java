@@ -49,7 +49,8 @@ public class RealEstateDaoImpl implements RealEstateDaoInterface{
             RealEstate realEstate = null;
             if (rs.next()) {
                 realEstate = new RealEstate(
-                        plotDao.getPlotByPlotNumber(rs.getString("ingatlan_azonosito")),
+                        rs.getInt("ingatlan_azonosito"),
+                        new Plot(),
                         rs.getString("jelleg"),
                         rs.getInt("epites_eve"),
                         rs.getInt("iranyitoszam"),
@@ -91,5 +92,19 @@ public class RealEstateDaoImpl implements RealEstateDaoInterface{
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public boolean deleteRealEstate(RealEstate realEstate){
+        String query = "delete from ingatlan where ingatlan_azonosito = ?";
+        try{
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, realEstate.getID());
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

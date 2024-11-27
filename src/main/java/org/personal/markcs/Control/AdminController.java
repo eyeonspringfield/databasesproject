@@ -1,7 +1,10 @@
 package org.personal.markcs.Control;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.personal.markcs.App;
 import org.personal.markcs.DAO.OwnershipDaoImpl;
 import org.personal.markcs.DAO.PlotDaoImpl;
@@ -11,6 +14,7 @@ import org.personal.markcs.Model.*;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 public class AdminController {
     UserDaoImpl userDao = new UserDaoImpl();
@@ -64,6 +68,46 @@ public class AdminController {
     private TextField plotPercentOfOwnership;
     @FXML
     private DatePicker plotDateOfPurchase;
+    @FXML
+    private TableView<RealEstate> reTableView;
+    @FXML
+    private TableColumn<RealEstate, String> reTypeCol;
+    @FXML
+    private TableColumn<RealEstate, Date> reDateOfBuildingCol;
+    @FXML
+    private TableColumn<RealEstate, Integer> rePostalCodeCol;
+    @FXML
+    private TableColumn<RealEstate, String> reSettlementCol;
+    @FXML
+    private TableColumn<RealEstate, String> reStreetAndHouseCol;
+    @FXML
+    private TableColumn<RealEstate, Integer> reApproxValueCol;
+    @FXML
+    private TableColumn<RealEstate, Void> actionColumnRe;
+    @FXML
+    private TableView<Plot> plotTableView;
+    @FXML
+    private TableColumn<Plot, String> plotNumberCol;
+    @FXML
+    private TableColumn<Plot, String> plotTypeCol;
+    @FXML
+    private TableColumn<Plot, String> plotSizeCol;
+    @FXML
+    private TableColumn<Plot, String> plotApproxValueCol;
+    @FXML
+    private TableColumn<Plot, Void> actionColumnPlot;
+    @FXML
+    private TableView<User> userTableView;
+    @FXML
+    private TableColumn<User, String> usernameCol;
+    @FXML
+    private TableColumn<User, String> taxIdCol;
+    @FXML
+    private TableColumn<User, String> phoneNumberCol;
+
+    ObservableList<RealEstate> realEstateObservableList = FXCollections.observableArrayList();
+    ObservableList<Plot> plotObservableList = FXCollections.observableArrayList();
+    ObservableList<User> userObservableList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
@@ -85,7 +129,141 @@ public class AdminController {
         phoneNumberLabel.setText(user.getPhone());
         mothersNameLabel.setText(user.getMothersMaidenName());
 
-        //TODO tableview initialization
+        List<Ownership> ownerships = ownershipDao.getAllOwnerships();
+        List<User> users = userDao.getAllUsers();
+
+        reTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        reDateOfBuildingCol.setCellValueFactory(new PropertyValueFactory<>("timeOfConstruction"));
+        rePostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        reSettlementCol.setCellValueFactory(new PropertyValueFactory<>("settlement"));
+        reStreetAndHouseCol.setCellValueFactory(new PropertyValueFactory<>("streetAndHouseNumber"));
+        reApproxValueCol.setCellValueFactory(new PropertyValueFactory<>("approxValue"));
+
+        plotNumberCol.setCellValueFactory(new PropertyValueFactory<>("plotNumber"));
+        plotTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        plotSizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+        plotApproxValueCol.setCellValueFactory(new PropertyValueFactory<>("approxValue"));
+
+        usernameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        taxIdCol.setCellValueFactory(new PropertyValueFactory<>("taxID"));
+        phoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+        for(User userFromList : users){
+            userObservableList.add(userDao.getUserByName(userFromList.getName()));
+        }
+
+        for(Ownership ownership : ownerships) {
+            if(ownership.getRealEstate() != null) {
+                realEstateObservableList.add(realEstateDao.getRealEstateById(realEstateDao.getRealEstateID(ownership.getRealEstate())));
+            }else{
+                plotObservableList.add(plotDao.getPlotByPlotNumber(ownership.getPlot().getPlotNumber()));
+            }
+        }
+        reTableView.setItems(realEstateObservableList);
+        plotTableView.setItems(plotObservableList);
+        userTableView.setItems(userObservableList);
+
+        refreshData();
+
+        actionColumnRe.setCellFactory(param -> {
+            Button deleteButton = new Button("Törlés");
+            return new TableCell<RealEstate, Void>() {
+                @Override
+                protected void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(deleteButton);
+                        deleteButton.setOnAction(event -> {
+                            TableRow<RealEstate> row = getTableRow();
+                            if (row != null) {
+                                int index = row.getIndex();
+                                RealEstate realEstateItem = getTableView().getItems().get(index);
+                                System.out.println(realEstateItem.getID() + realEstateItem.getApproxValue());
+                                handleDeleteActionForRealEstate(realEstateItem);
+                            }
+                        });
+                    }
+                }
+            };
+        });
+        if (!reTableView.getColumns().contains(actionColumnRe)) {
+            reTableView.getColumns().add(actionColumnRe);
+        }
+
+        actionColumnPlot.setCellFactory(param -> {
+            Button deleteButton = new Button("Törlés");
+            return new TableCell<Plot, Void>() {
+                @Override
+                protected void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(deleteButton);
+                        deleteButton.setOnAction(event -> {
+                            TableRow<Plot> row = getTableRow();
+                            if (row != null) {
+                                int index = row.getIndex();
+                                Plot plot = getTableView().getItems().get(index);
+                                handleDeleteActionForPlot(plot);
+                            }
+                        });
+                    }
+                }
+            };
+        });
+        if (!reTableView.getColumns().contains(actionColumnRe)) {
+            reTableView.getColumns().add(actionColumnRe);
+        }
+    }
+
+    private void handleDeleteActionForRealEstate(RealEstate realEstate) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Jóváhagyás szükséges!");
+        alert.setHeaderText(null);
+        alert.setContentText("Biztosan szeretné kitörölni az ingatlant? Ez a folyamat visszafordíthatatlan!");
+        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        if (result == ButtonType.OK) {
+            System.out.println(realEstate.getID());
+            boolean deleted = realEstateDao.deleteRealEstate(realEstate);
+            System.out.println(deleted);
+            refreshData();
+        }
+    }
+
+    private void handleDeleteActionForPlot(Plot plot){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Jóváhagyás szükséges!");
+        alert.setHeaderText(null);
+        alert.setContentText("Biztosan szeretné kitörölni az ingatlant? Ez a folyamat visszafordíthatatlan!");
+        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        if (result == ButtonType.OK) {
+            boolean deleted = plotDao.deletePlot(plot);
+            System.out.println(deleted);
+            refreshData();
+        }
+    }
+
+    private void refreshData() {
+        List<Ownership> ownerships = ownershipDao.getAllOwnerships();
+
+        realEstateObservableList.clear();
+        plotObservableList.clear();
+
+        for (Ownership ownership : ownerships) {
+            if (ownership.getRealEstate() != null) {
+                realEstateObservableList.add(realEstateDao.getRealEstateById(
+                        realEstateDao.getRealEstateID(ownership.getRealEstate())));
+            } else {
+                plotObservableList.add(plotDao.getPlotByPlotNumber(ownership.getPlot().getPlotNumber()));
+            }
+        }
     }
 
     @FXML
@@ -143,6 +321,8 @@ public class AdminController {
         realEstateDao.addRealEstate(realEstate);
         realEstate.setID(realEstateDao.getRealEstateID(realEstate));
         ownershipDao.addOwnership(ownership, OwnershipType.REAL_ESTATE_TYPE);
+
+        refreshData();
     }
 
     @FXML
@@ -156,6 +336,7 @@ public class AdminController {
             alert.setHeaderText(null);
             alert.setContentText("Nem lehet üres beviteli mező!");
             alert.showAndWait();
+            return;
         }
 
         if(user == null){
@@ -164,6 +345,7 @@ public class AdminController {
             alert.setHeaderText(null);
             alert.setContentText("Nincs ilyen nevű felhasználó!");
             alert.showAndWait();
+            return;
         }
 
         Plot plot = new Plot(
@@ -181,6 +363,8 @@ public class AdminController {
 
         plotDao.addPlot(plot);
         ownershipDao.addOwnership(ownership, OwnershipType.PLOT_TYPE);
+
+        refreshData();
     }
 
     @FXML
