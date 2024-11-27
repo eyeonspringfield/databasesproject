@@ -32,6 +32,7 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
             stmt.setInt(1, ownership.getUser().getTaxID());
             stmt.setString(2, ownership.getPlot().getPlotNumber());
             if(type == OwnershipType.REAL_ESTATE_TYPE) {
+                System.out.println("id" + ownership.getRealEstate().getID());
                 stmt.setInt(3, ownership.getRealEstate().getID());
                 stmt.setDate(4, Date.valueOf(ownership.getDateOfPurchase()));
                 stmt.setDouble(5, ownership.getPartOfOwnership());

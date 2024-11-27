@@ -117,6 +117,8 @@ public class AdminController {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Nincs ilyen helyrajzi számmal rendelkező telek!");
+            alert.showAndWait();
+            return;
         }
 
         Plot plot = plotDao.getPlotByPlotNumber(rePlotId.getText());
