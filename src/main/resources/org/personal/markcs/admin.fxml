@@ -36,11 +36,11 @@
         </MenuBar>
         <Label layoutX="66.0" layoutY="74.0" text="Felhasználónév:" />
         <Label layoutX="96.0" layoutY="134.0" text="Adószám:" />
-        <Label layoutX="113.0" layoutY="92.0" text="Lakcím:" />
+        <Label layoutX="63.0" layoutY="92.0" text="Lakcím:" />
         <Label layoutX="76.0" layoutY="152.0" text="Telefonszám: " />
         <Label layoutX="64.0" layoutY="110.0" text="Születési dátum:" />
         <Label layoutX="83.0" layoutY="170.0" text="Anyja neve:" />
-        <Button layoutX="24.0" layoutY="201.0" mnemonicParsing="false" text="Adatok módosítása" />
+        <Button layoutX="24.0" layoutY="201.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
         <TableView fx:id="reTableView" layoutX="37.0" layoutY="398.0" prefHeight="242.0" prefWidth="629.0">
             <columns>
                 <TableColumn fx:id="reTypeCol" prefWidth="75.0" text="Jelleg" />
@@ -58,19 +58,19 @@
                 <TableColumn fx:id="plotNumberCol" prefWidth="123.20001220703125" text="Helyrajzi szám" />
                 <TableColumn fx:id="plotTypeCol" prefWidth="91.2000732421875" text="Jelleg" />
                 <TableColumn fx:id="plotSizeCol" prefWidth="69.5999755859375" text="Méret" />
-                <TableColumn fx:id="plotApproxValueCol" prefWidth="106.40008544921875" text="Becsült érték" />
-            <TableColumn fx:id="actionColumnPlot" prefWidth="52.79990234374998" text="Törlés" />
+                <TableColumn fx:id="plotApproxValueCol" prefWidth="93.60015869140625" text="Becsült érték" />
+            <TableColumn fx:id="actionColumnPlot" prefWidth="66.39990234375" text="Törlés" />
             </columns>
         </TableView>
         <Label layoutX="323.0" layoutY="373.0" text="Ingatlanok" />
       <Label fx:id="usernameLabel" layoutX="156.0" layoutY="74.0" text="default" />
-      <Label fx:id="addressLabel" layoutX="156.0" layoutY="92.0" text="default" />
+      <Label fx:id="addressLabel" layoutX="103.0" layoutY="92.0" text="default" />
       <Label fx:id="dobLabel" layoutX="156.0" layoutY="110.0" text="default" />
       <Label fx:id="taxIdLabel" layoutX="156.0" layoutY="134.0" text="default" />
       <Label fx:id="phoneNumberLabel" layoutX="156.0" layoutY="152.0" text="default" />
       <Label fx:id="mothersNameLabel" layoutX="156.0" layoutY="170.0" text="default" />
       <Button layoutX="151.0" layoutY="201.0" mnemonicParsing="false" onAction="#logout" text="Kijelentkezés" />
-      <Button layoutX="369.0" layoutY="281.0" mnemonicParsing="false" onAction="#addRealEstate" text="Ingatlan bejegyzése" />
+      <Button layoutX="387.0" layoutY="281.0" mnemonicParsing="false" onAction="#addRealEstate" text="Ingatlan bejegyzése" />
       <VBox layoutX="630.0" layoutY="50.0" prefHeight="274.0" prefWidth="180.0" spacing="5.0">
          <children>
             <TextField fx:id="plotNumber" promptText="Helyrajzi szám" />
@@ -91,17 +91,8 @@
         </columns>
       </TableView>
       <Label layoutX="980.0" layoutY="17.0" text="Felhasználók" />
-      <HBox layoutX="260.0" layoutY="89.0" prefHeight="184.0" prefWidth="339.0">
+      <HBox layoutX="275.0" layoutY="51.0" prefHeight="184.0" prefWidth="344.0" spacing="5.0">
          <children>
-            <VBox prefHeight="222.0" prefWidth="168.0" spacing="5.0">
-               <children>
-                  <TextField fx:id="reApproxValue" promptText="Becsült érték (HUF)" />
-                  <TextField fx:id="reNameOfOwner" promptText="Tulaj. felhasználóneve" />
-                  <TextField fx:id="rePercentOfOwnership" promptText="Tulajdoni hányad (0-1)" />
-                  <TextField fx:id="rePlotId" promptText="Telek hrsz." />
-                  <DatePicker fx:id="reDateOfPurchase" promptText="Tulaj.ba kerülés dátuma" />
-               </children>
-            </VBox>
             <VBox prefHeight="274.0" prefWidth="171.0" spacing="5.0">
                <children>
                   <TextField fx:id="reType" promptText="Jelleg" />
@@ -111,7 +102,18 @@
                   <TextField fx:id="reStreetAndHouse" promptText="Közterület és házszám" />
                </children>
             </VBox>
+            <VBox prefHeight="222.0" prefWidth="168.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="reApproxValue" promptText="Becsült érték (HUF)" />
+                  <TextField fx:id="reNameOfOwner" promptText="Tulaj. felhasználóneve" />
+                  <TextField fx:id="rePercentOfOwnership" promptText="Tulajdoni hányad (0-1)" />
+                  <TextField fx:id="rePlotId" promptText="Telek hrsz." />
+                  <DatePicker fx:id="reDateOfPurchase" promptText="Tulaj.ba kerülés dátuma" />
+               </children>
+            </VBox>
          </children>
       </HBox>
+      <Label layoutX="397.0" layoutY="26.0" text="Ingatlan bejegyzés" />
+      <Label layoutX="678.0" layoutY="26.0" text="Telek bejegyzés" />
     </children>
 </AnchorPane>

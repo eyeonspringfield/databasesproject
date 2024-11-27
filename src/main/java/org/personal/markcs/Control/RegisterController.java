@@ -40,6 +40,10 @@ public class RegisterController {
 
     UserDaoImpl dao = new UserDaoImpl();
 
+    public void returnToLogin() throws IOException {
+        App.setRoot("primary");
+    }
+
     public void registerUser(ActionEvent actionEvent) throws IOException {
         if(firstName.getText().isEmpty() || lastName.getText().isEmpty() || taxId.getText().isEmpty() ||
                 phoneNumber.getText().isEmpty() || motherName.getText().isEmpty() || birthDate.getValue() == null ||

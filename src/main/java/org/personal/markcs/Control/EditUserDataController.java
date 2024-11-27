@@ -106,7 +106,11 @@ public class EditUserDataController {
 
             boolean isUpdated = dao.updateUser(updatedUser);
             if(isUpdated){
-                App.setRoot("list");
+                if(Session.isAdmin()) {
+                    App.setRoot("admin");
+                }else {
+                    App.setRoot("list");
+                }
             }
         }
 
@@ -114,6 +118,10 @@ public class EditUserDataController {
 
     @FXML
     private void cancelEditUserData() throws IOException {
-        App.setRoot("list");
+        if(Session.isAdmin()){
+            App.setRoot("admin");
+        }else {
+            App.setRoot("list");
+        }
     }
 }

@@ -368,6 +368,11 @@ public class AdminController {
     }
 
     @FXML
+    private void editUserData() throws IOException {
+        App.setRoot("editUserData");
+    }
+
+    @FXML
     private void logout() throws IOException {
         if(!Session.isAuthenticated() || !Session.isAdmin()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
