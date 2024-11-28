@@ -136,4 +136,97 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
         // Implementation depends on your query structure.
         return null;
     }
+
+    public int getNumOfRealEstatesByUsername(String username) {
+        String query = "select count(*) from tulajdon where adoszam = ? and ingatlan_azonosito IS NOT NULL";
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, userDao.getUserByName(username).getTaxID());
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getNumOfPlotsByUsername(String username){
+        String query = "select count(*) from tulajdon where adoszam = ? and ingatlan_azonosito IS NULL";
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, userDao.getUserByName(username).getTaxID());
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getSumOfRealEstateValueByUsername(String username){
+        String query = "select sum(becsult_ertek) from tulajdon as t, ingatlan as i " +
+                "where t.adoszam = ? and t.ingatlan_azonosito IS NOT NULL " +
+                "and i.ingatlan_azonosito = t.ingatlan_azonosito";
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, userDao.getUserByName(username).getTaxID());
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getSumOfPlotsValueByUsername(String username){
+        String query = "select sum(becsult_ertek) from tulajdon as tu, telek as te " +
+                "where tu.adoszam = ? and tu.ingatlan_azonosito IS NULL " +
+                "and tu.helyrajzi_szam = te.helyrajzi_szam";
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, userDao.getUserByName(username).getTaxID());
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getSumOfValueOfPlotsAndRealEstatesByUsername(String username){
+        String query = "select sum(te.becsult_ertek + ifnull(i.becsult_ertek, 0)) as total_value " +
+                "from tulajdon as tu " +
+                "left join telek as te on te.helyrajzi_szam = tu.helyrajzi_szam " +
+                "left join ingatlan as i on i.ingatlan_azonosito = tu.ingatlan_azonosito " +
+                "where tu.adoszam = ?;";
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, userDao.getUserByName(username).getTaxID());
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

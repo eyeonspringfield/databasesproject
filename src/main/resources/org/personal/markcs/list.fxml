@@ -2,47 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.personal.markcs.Control.ListController">
     <children>
-        <MenuBar>
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <Label layoutX="1068.0" layoutY="17.0" text="Üdvözlet, Felhasználó!" />
-        <Label layoutX="66.0" layoutY="74.0" text="Felhasználónév:" />
-        <Label layoutX="402.0" layoutY="74.0" text="Adószám:" />
-        <Label layoutX="113.0" layoutY="92.0" text="Lakcím:" />
-        <Label layoutX="381.0" layoutY="92.0" text="Telefonszám: " />
-        <Label layoutX="64.0" layoutY="110.0" text="Születési dátum:" />
-        <Label layoutX="387.0" layoutY="110.0" text="Anyja neve:" />
-        <Button layoutX="73.0" layoutY="136.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
-        <TableView fx:id="reTable" layoutX="14.0" layoutY="219.0" prefHeight="441.0" prefWidth="694.0">
+        <Button layoutX="112.0" layoutY="136.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
+        <TableView fx:id="reTable" layoutX="14.0" layoutY="286.0" prefHeight="375.0" prefWidth="694.0">
             <columns>
                 <TableColumn fx:id="reTypeCol" prefWidth="162.3999605178833" text="Jelleg" />
-                <TableColumn fx:id="reBuildYearCol" prefWidth="71.20004272460938" text="Építés éve" />
-                <TableColumn fx:id="rePostalCodeCol" prefWidth="81.60002136230469" text="Irányítószám" />
+                <TableColumn fx:id="reBuildYearCol" prefWidth="71.20004272460938" text="Év" />
+                <TableColumn fx:id="rePostalCodeCol" prefWidth="81.60002136230469" text="Ir.szám" />
                 <TableColumn fx:id="reSettlementCol" prefWidth="92.79998779296875" text="Település" />
                 <TableColumn fx:id="reHouseAndStreetCol" prefWidth="162.39996337890625" text="Közterület, házszám" />
                 <TableColumn fx:id="reApproxValueCol" prefWidth="125.60003662109375" text="Becsült érték" />
@@ -57,14 +31,53 @@
                 <TableColumn fx:id="plotApproxValueCol" prefWidth="117.59991455078125" text="Becsült érték" />
             </columns>
         </TableView>
-        <Label layoutX="333.0" layoutY="191.0" text="Ingatlanok" />
-      <Label fx:id="usernameLabel" layoutX="156.0" layoutY="74.0" text="default" />
-      <Label fx:id="addressLabel" layoutX="156.0" layoutY="92.0" text="default" />
-      <Label fx:id="dobLabel" layoutX="156.0" layoutY="110.0" text="default" />
-      <Label fx:id="taxIdLabel" layoutX="461.0" layoutY="74.0" text="default" />
-      <Label fx:id="phoneNumberLabel" layoutX="461.0" layoutY="92.0" text="default" />
-      <Label fx:id="mothersNameLabel" layoutX="461.0" layoutY="110.0" text="default" />
-      <Button layoutX="386.0" layoutY="136.0" mnemonicParsing="false" onAction="#logout" text="Kijelentkezés" />
-      <Button layoutX="216.0" layoutY="136.0" mnemonicParsing="false" text="Statisztikák megtekintése" />
+        <Label layoutX="333.0" layoutY="253.0" text="Ingatlanok" />
+      <Button layoutX="347.0" layoutY="136.0" mnemonicParsing="false" onAction="#logout" text="Kijelentkezés" />
+      <Button layoutX="206.0" layoutY="183.0" mnemonicParsing="false" onAction="#showStatistics" text="Statisztikák megtekintése" />
+      <Label layoutX="130.0" layoutY="26.0" text="Üdvözöljük, itt tekintheti meg a tulajdonban lévő ingatlanjait és telkeit! További statisztikákért kattintson a statisztikák megtekintése gombra!">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <HBox layoutX="48.0" layoutY="62.0" prefHeight="62.0" prefWidth="466.0">
+         <children>
+            <HBox prefHeight="70.0" prefWidth="266.0">
+               <children>
+                  <VBox prefHeight="62.0" prefWidth="98.0">
+                     <children>
+                          <Label text="Felhasználónév:" />
+                          <Label text="Lakcím:" />
+                          <Label text="Születési dátum:" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="70.0" prefWidth="168.0">
+                     <children>
+                        <Label fx:id="usernameLabel" text="default" />
+                        <Label fx:id="addressLabel" text="default" />
+                        <Label fx:id="dobLabel" text="default" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="98.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="74.0" prefWidth="100.0">
+                     <children>
+                          <Label text="Adószám:" />
+                          <Label text="Telefonszám: " />
+                          <Label text="Anyja neve:" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="70.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="taxIdLabel" text="default" />
+                        <Label fx:id="phoneNumberLabel" text="default" />
+                        <Label fx:id="mothersNameLabel" text="default" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

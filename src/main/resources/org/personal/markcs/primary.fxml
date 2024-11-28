@@ -10,16 +10,18 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.personal.markcs.Control.PrimaryController">
    <children>
-      <Label layoutX="533.0" layoutY="169.0" prefHeight="50.0" prefWidth="133.0" text="IngatlanSzeged.hu">
+      <Label layoutX="361.0" layoutY="85.0" prefHeight="50.0" prefWidth="475.0" text="Üdvözöljük az IngatlanSzeged Kft. adatbáziskezelő alkalmazásában!">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="username" layoutX="525.0" layoutY="245.0" promptText="Felhasználónév" />
-      <PasswordField fx:id="password" layoutX="525.0" layoutY="288.0" promptText="Jelszó" />
-      <Button layoutX="489.0" layoutY="340.0" mnemonicParsing="false" onAction="#logIn" text="Bejelentkezés" />
-      <Button layoutX="635.0" layoutY="340.0" mnemonicParsing="false" onAction="#register" text="Regisztráció" />
-      <Button layoutX="571.0" layoutY="401.0" mnemonicParsing="false" onAction="#closeApp" text="Bezárás" />
-      <ProgressIndicator fx:id="progressIndicator" layoutX="573.0" layoutY="477.0" prefHeight="89.0" prefWidth="120.0" visible="false" />
+      <TextField fx:id="username" layoutX="525.0" layoutY="239.0" promptText="Felhasználónév" />
+      <PasswordField fx:id="password" layoutX="525.0" layoutY="282.0" promptText="Jelszó" />
+      <Button layoutX="481.0" layoutY="337.0" mnemonicParsing="false" onAction="#logIn" text="Bejelentkezés" />
+      <Button layoutX="635.0" layoutY="337.0" mnemonicParsing="false" onAction="#register" text="Regisztráció" />
+      <Button layoutX="572.0" layoutY="400.0" mnemonicParsing="false" onAction="#closeApp" text="Bezárás" />
+      <ProgressIndicator fx:id="progressIndicator" layoutX="583.0" layoutY="520.0" prefHeight="89.0" prefWidth="120.0" visible="false" />
+      <Label layoutX="421.0" layoutY="174.0" text="Belépéshez adja meg az adatait, majd kattintson a belépés gombra!" />
+      <Label layoutX="472.0" layoutY="201.0" text="Regisztrációhoz kattintson a registráció gombra!" />
    </children>
 </AnchorPane>

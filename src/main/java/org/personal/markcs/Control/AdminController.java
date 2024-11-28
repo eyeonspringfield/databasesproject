@@ -166,7 +166,7 @@ public class AdminController {
         refreshData();
 
         actionColumnRe.setCellFactory(param -> {
-            Button deleteButton = new Button("Törlés");
+            Button deleteButton = new Button("X");
             return new TableCell<RealEstate, Void>() {
                 @Override
                 protected void updateItem(Void item, boolean empty) {
@@ -194,7 +194,7 @@ public class AdminController {
         }
 
         actionColumnPlot.setCellFactory(param -> {
-            Button deleteButton = new Button("Törlés");
+            Button deleteButton = new Button("X");
             return new TableCell<Plot, Void>() {
                 @Override
                 protected void updateItem(Void item, boolean empty) {

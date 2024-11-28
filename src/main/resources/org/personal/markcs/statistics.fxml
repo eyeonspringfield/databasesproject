@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.personal.markcs.Control.StatisticsController">
+   <children>
+      <Label layoutX="562.0" layoutY="14.0" text="Statisztikák">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <HBox layoutX="66.0" layoutY="69.0" prefHeight="107.0" prefWidth="421.0">
+         <children>
+            <VBox prefHeight="107.0" prefWidth="274.0" spacing="5.0">
+               <children>
+                  <Label text="Tulajdonban lévő ingatlanok:" />
+                  <Label text="Tulajdonban lévő telkek:" />
+                  <Label text="Tulajdonban lévő ingatlanok összértéke:" />
+                  <Label text="Tulajdonban lévő telkek összértéke:" />
+                  <Label text="Teljes ingatlanportfólió összértéke:" />
+               </children>
+            </VBox>
+            <VBox prefHeight="107.0" prefWidth="145.0" spacing="5.0">
+               <children>
+                  <Label fx:id="numOfRealEstate" text="0 db" />
+                  <Label fx:id="numOfPlot" text="0 db" />
+                  <Label fx:id="sumOfValueOfRealEstate" text="0 HUF" />
+                  <Label fx:id="sumOfValueOfPlot" text="0 HUF" />
+                  <Label fx:id="sumOfValueOfPortfolio" text="0 HUF" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button layoutX="576.0" layoutY="189.0" mnemonicParsing="false" onAction="#returnToList" text="Vissza" />
+   </children>
+</AnchorPane>

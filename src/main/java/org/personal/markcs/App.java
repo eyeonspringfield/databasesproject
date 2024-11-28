@@ -1,14 +1,16 @@
 package org.personal.markcs;
 
+import atlantafx.base.theme.PrimerDark;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.sql.*;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * JavaFX App
@@ -20,7 +22,11 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 1200, 675);
+        Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
         stage.setScene(scene);
+        stage.setTitle("IngatlanSzeged adatbáziskezelő");
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/favicon-purple.png"))));
+
         stage.show();
     }
 

@@ -6,27 +6,41 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.personal.markcs.Control.RegisterController">
    <children>
-      <Label layoutX="568.0" layoutY="44.0" text="Regisztráció" />
-      <VBox layoutX="487.0" layoutY="85.0" prefHeight="364.0" prefWidth="226.0" spacing="15.0">
+      <Label layoutX="551.0" layoutY="44.0" text="Regisztráció">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <CheckBox fx:id="confirmationOfValidity" layoutX="416.0" layoutY="400.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="366.0" text="Kijelentem, hogy a megadott adatok a valóságnak megfelelnek, és elismerem, hogy a hamis adatokkal való regisztráció büntetést von maga után." wrapText="true" />
+      <Button layoutX="512.0" layoutY="545.0" mnemonicParsing="false" onAction="#registerUser" text="Regisztráció" />
+      <Button layoutX="622.0" layoutY="545.0" mnemonicParsing="false" onAction="#returnToLogin" text="Mégse" />
+      <Label layoutX="479.0" layoutY="85.0" text="Kérjük, adja meg adatait az alábbi űrlapon!" />
+      <HBox layoutX="367.0" layoutY="130.0" prefHeight="222.0" prefWidth="465.0" spacing="15.0">
          <children>
-            <TextField fx:id="firstName" promptText="Vezetéknév" />
-            <TextField fx:id="lastName" promptText="Keresztnév" />
-            <TextField fx:id="password" promptText="Jelszó" />
-            <TextField fx:id="taxId" promptText="Adószám" />
-            <TextField fx:id="phoneNumber" promptText="Telefonszám" />
-            <TextField fx:id="motherName" promptText="Anyja neve" />
-            <DatePicker fx:id="birthDate" prefHeight="26.0" prefWidth="227.0" promptText="Születési dátum" />
-            <TextField fx:id="postalCode" promptText="Irányítószám" />
-            <TextField fx:id="settlement" promptText="Település" />
-            <TextField fx:id="streetHouseNumber" promptText="Utca, házszám" />
+            <VBox prefHeight="222.0" prefWidth="223.0" spacing="15.0">
+               <children>
+                  <TextField fx:id="firstName" promptText="Vezetéknév" />
+                  <DatePicker fx:id="birthDate" prefHeight="26.0" prefWidth="227.0" promptText="Születési dátum" />
+                  <TextField fx:id="settlement" promptText="Település" />
+                  <TextField fx:id="streetHouseNumber" promptText="Utca, házszám" />
+                  <TextField fx:id="phoneNumber" promptText="Telefonszám" />
+               </children>
+            </VBox>
+            <VBox prefHeight="393.0" prefWidth="226.0" spacing="15.0">
+               <children>
+                  <TextField fx:id="lastName" promptText="Keresztnév" />
+                  <TextField fx:id="motherName" promptText="Anyja neve" />
+                  <TextField fx:id="postalCode" promptText="Irányítószám" />
+                  <TextField fx:id="taxId" promptText="Adószám" />
+                  <TextField fx:id="password" promptText="Jelszó" />
+               </children>
+            </VBox>
          </children>
-      </VBox>
-      <CheckBox fx:id="confirmationOfValidity" layoutX="374.0" layoutY="504.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="452.0" text="Kijelentem, hogy a megadott adatok a valóságnak megfelelnek, és elismerem, hogy a hamis adatokkal való regisztráció büntetést von maga után." wrapText="true" />
-      <Button layoutX="508.0" layoutY="575.0" mnemonicParsing="false" onAction="#registerUser" text="Regisztráció" />
-      <Button layoutX="617.0" layoutY="575.0" mnemonicParsing="false" onAction="#returnToLogin" text="Mégse" />
+      </HBox>
    </children>
 </AnchorPane>

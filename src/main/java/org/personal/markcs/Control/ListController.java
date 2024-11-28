@@ -138,6 +138,11 @@ public class ListController {
     }
 
     @FXML
+    private void showStatistics() throws IOException {
+        App.setRoot("statistics");
+    }
+
+    @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
     }

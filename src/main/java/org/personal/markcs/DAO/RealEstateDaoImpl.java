@@ -2,6 +2,7 @@ package org.personal.markcs.DAO;
 
 import org.personal.markcs.Model.Plot;
 import org.personal.markcs.Model.RealEstate;
+import org.personal.markcs.Model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

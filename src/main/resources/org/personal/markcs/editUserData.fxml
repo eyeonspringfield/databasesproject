@@ -22,7 +22,7 @@
             <TextField fx:id="address" promptText="Cím" />
          </children>
       </VBox>
-      <Button layoutX="489.0" layoutY="463.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
+      <Button layoutX="469.0" layoutY="463.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
       <Button layoutX="625.0" layoutY="463.0" mnemonicParsing="false" onAction="#cancelEditUserData" text="Mégse" />
       <VBox layoutX="614.0" layoutY="59.0" prefHeight="200.0" prefWidth="226.0" spacing="15.0">
          <children>
@@ -31,6 +31,6 @@
             <PasswordField fx:id="newPasswordAgain" promptText="Új jelszó újra" />
          </children>
       </VBox>
-      <CheckBox fx:id="acceptTerms" layoutX="465.0" layoutY="367.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="270.0" text="Kijelentem, hogy a beírt adatok a valóságnak megfelelnek, és elismerem, hogy a hamis adatok bejegyzése büntetést von maga után." wrapText="true" />
+      <CheckBox fx:id="acceptTerms" layoutX="381.0" layoutY="367.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="438.0" text="Kijelentem, hogy a megadott adatok a valóságnak megfelelnek, és elismerem, hogy a hamis adatok bejegyzése büntetést von maga után." wrapText="true" />
    </children>
 </AnchorPane>

@@ -3,9 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -15,40 +12,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.personal.markcs.Control.AdminController">
     <children>
-        <MenuBar>
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <Label layoutX="66.0" layoutY="74.0" text="Felhasználónév:" />
-        <Label layoutX="96.0" layoutY="134.0" text="Adószám:" />
-        <Label layoutX="63.0" layoutY="92.0" text="Lakcím:" />
-        <Label layoutX="76.0" layoutY="152.0" text="Telefonszám: " />
-        <Label layoutX="64.0" layoutY="110.0" text="Születési dátum:" />
-        <Label layoutX="83.0" layoutY="170.0" text="Anyja neve:" />
-        <Button layoutX="24.0" layoutY="201.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
+        <Button layoutX="84.0" layoutY="180.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
         <TableView fx:id="reTableView" layoutX="37.0" layoutY="398.0" prefHeight="242.0" prefWidth="629.0">
             <columns>
                 <TableColumn fx:id="reTypeCol" prefWidth="75.0" text="Jelleg" />
-                <TableColumn fx:id="reDateOfBuildingCol" prefWidth="64.0" text="Építés éve" />
-                <TableColumn fx:id="rePostalCodeCol" prefWidth="59.20001220703125" text="Ir.szám" />
+                <TableColumn fx:id="reDateOfBuildingCol" prefWidth="64.0" text="Év" />
+                <TableColumn fx:id="rePostalCodeCol" prefWidth="59.20001220703125" text="Ir.sz." />
                 <TableColumn fx:id="reSettlementCol" prefWidth="124.80006408691406" text="Település" />
                 <TableColumn fx:id="reStreetAndHouseCol" prefWidth="147.199951171875" text="Közterület, házszám" />
-                <TableColumn fx:id="reApproxValueCol" minWidth="0.0" prefWidth="96.79998779296875" text="Becsült érték" />
+                <TableColumn fx:id="reApproxValueCol" minWidth="0.0" prefWidth="96.79998779296875" text="Becs. ért." />
             <TableColumn fx:id="actionColumnRe" prefWidth="62.4000244140625" text="Törlés" />
             </columns>
         </TableView>
@@ -58,19 +30,13 @@
                 <TableColumn fx:id="plotNumberCol" prefWidth="123.20001220703125" text="Helyrajzi szám" />
                 <TableColumn fx:id="plotTypeCol" prefWidth="91.2000732421875" text="Jelleg" />
                 <TableColumn fx:id="plotSizeCol" prefWidth="69.5999755859375" text="Méret" />
-                <TableColumn fx:id="plotApproxValueCol" prefWidth="93.60015869140625" text="Becsült érték" />
+                <TableColumn fx:id="plotApproxValueCol" prefWidth="93.60015869140625" text="Becs. ért." />
             <TableColumn fx:id="actionColumnPlot" prefWidth="66.39990234375" text="Törlés" />
             </columns>
         </TableView>
         <Label layoutX="323.0" layoutY="373.0" text="Ingatlanok" />
-      <Label fx:id="usernameLabel" layoutX="156.0" layoutY="74.0" text="default" />
-      <Label fx:id="addressLabel" layoutX="103.0" layoutY="92.0" text="default" />
-      <Label fx:id="dobLabel" layoutX="156.0" layoutY="110.0" text="default" />
-      <Label fx:id="taxIdLabel" layoutX="156.0" layoutY="134.0" text="default" />
-      <Label fx:id="phoneNumberLabel" layoutX="156.0" layoutY="152.0" text="default" />
-      <Label fx:id="mothersNameLabel" layoutX="156.0" layoutY="170.0" text="default" />
-      <Button layoutX="151.0" layoutY="201.0" mnemonicParsing="false" onAction="#logout" text="Kijelentkezés" />
-      <Button layoutX="387.0" layoutY="281.0" mnemonicParsing="false" onAction="#addRealEstate" text="Ingatlan bejegyzése" />
+      <Button layoutX="101.0" layoutY="222.0" mnemonicParsing="false" onAction="#logout" text="Kijelentkezés" />
+      <Button layoutX="380.0" layoutY="262.0" mnemonicParsing="false" onAction="#addRealEstate" text="Ingatlan bejegyzése" />
       <VBox layoutX="630.0" layoutY="50.0" prefHeight="274.0" prefWidth="180.0" spacing="5.0">
          <children>
             <TextField fx:id="plotNumber" promptText="Helyrajzi szám" />
@@ -82,12 +48,12 @@
             <DatePicker fx:id="plotDateOfPurchase" promptText="Tulaj.ba kerülés dátuma" />
          </children>
       </VBox>
-      <Button layoutX="667.0" layoutY="281.0" mnemonicParsing="false" onAction="#addPlot" text="Telek bejegyzése" />
+      <Button layoutX="655.0" layoutY="338.0" mnemonicParsing="false" onAction="#addPlot" text="Telek bejegyzése" />
       <TableView fx:id="userTableView" layoutX="860.0" layoutY="43.0" prefHeight="314.0" prefWidth="308.0">
         <columns>
-          <TableColumn fx:id="usernameCol" prefWidth="110.4000244140625" text="Felhasználónév" />
-          <TableColumn fx:id="taxIdCol" prefWidth="96.0001220703125" text="Adószám" />
-            <TableColumn fx:id="phoneNumberCol" prefWidth="99.199951171875" text="Telefonszám" />
+          <TableColumn fx:id="usernameCol" prefWidth="120.79998779296875" text="Felhasználónév" />
+          <TableColumn fx:id="taxIdCol" prefWidth="80.7999267578125" text="Adószám" />
+            <TableColumn fx:id="phoneNumberCol" prefWidth="108.800048828125" text="Telefon" />
         </columns>
       </TableView>
       <Label layoutX="980.0" layoutY="17.0" text="Felhasználók" />
@@ -115,5 +81,29 @@
       </HBox>
       <Label layoutX="397.0" layoutY="26.0" text="Ingatlan bejegyzés" />
       <Label layoutX="678.0" layoutY="26.0" text="Telek bejegyzés" />
+      <HBox layoutX="24.0" layoutY="51.0" prefHeight="116.0" prefWidth="239.0">
+         <children>
+            <VBox prefHeight="116.0" prefWidth="114.0">
+               <children>
+                    <Label text="Felhasználónév:" />
+                    <Label text="Lakcím:" />
+                    <Label text="Születési dátum:" />
+                    <Label text="Adószám:" />
+                    <Label text="Telefonszám: " />
+                    <Label text="Anyja neve:" />
+               </children>
+            </VBox>
+            <VBox prefHeight="114.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="usernameLabel" text="default" />
+                  <Label fx:id="addressLabel" text="default" />
+                  <Label fx:id="dobLabel" text="default" />
+                  <Label fx:id="taxIdLabel" text="default" />
+                  <Label fx:id="phoneNumberLabel" text="default" />
+                  <Label fx:id="mothersNameLabel" text="default" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>
