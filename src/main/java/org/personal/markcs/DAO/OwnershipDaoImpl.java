@@ -138,7 +138,7 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
     }
 
     public int getNumOfRealEstatesByUsername(String username) {
-        String query = "select count(*) from tulajdon where adoszam = ? and ingatlan_azonosito IS NOT NULL";
+        String query = "select count(*) from tulajdon where adoszam = ? and ingatlan_azonosito is not null";
         try {
             Connection con = DriverManager.getConnection(url, "root", "");
             stmt = con.prepareStatement(query);
@@ -155,7 +155,7 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
     }
 
     public int getNumOfPlotsByUsername(String username){
-        String query = "select count(*) from tulajdon where adoszam = ? and ingatlan_azonosito IS NULL";
+        String query = "select count(*) from tulajdon where adoszam = ? and ingatlan_azonosito is null";
         try {
             Connection con = DriverManager.getConnection(url, "root", "");
             stmt = con.prepareStatement(query);
@@ -173,7 +173,7 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
 
     public int getSumOfRealEstateValueByUsername(String username){
         String query = "select sum(becsult_ertek) from tulajdon as t, ingatlan as i " +
-                "where t.adoszam = ? and t.ingatlan_azonosito IS NOT NULL " +
+                "where t.adoszam = ? and t.ingatlan_azonosito is not null " +
                 "and i.ingatlan_azonosito = t.ingatlan_azonosito";
         try {
             Connection con = DriverManager.getConnection(url, "root", "");
@@ -192,7 +192,7 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
 
     public int getSumOfPlotsValueByUsername(String username){
         String query = "select sum(becsult_ertek) from tulajdon as tu, telek as te " +
-                "where tu.adoszam = ? and tu.ingatlan_azonosito IS NULL " +
+                "where tu.adoszam = ? and tu.ingatlan_azonosito is null " +
                 "and tu.helyrajzi_szam = te.helyrajzi_szam";
         try {
             Connection con = DriverManager.getConnection(url, "root", "");
@@ -210,15 +210,23 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
     }
 
     public int getSumOfValueOfPlotsAndRealEstatesByUsername(String username){
-        String query = "select sum(te.becsult_ertek + ifnull(i.becsult_ertek, 0)) as total_value " +
+        String query = "select( " +
+                "ifnull((select sum(te.becsult_ertek) " +
                 "from tulajdon as tu " +
-                "left join telek as te on te.helyrajzi_szam = tu.helyrajzi_szam " +
-                "left join ingatlan as i on i.ingatlan_azonosito = tu.ingatlan_azonosito " +
-                "where tu.adoszam = ?;";
+                "inner join telek as te on te.helyrajzi_szam = tu.helyrajzi_szam " +
+                "where tu.adoszam = ? and tu.ingatlan_azonosito is null), 0) " +
+                "+ " +
+                "ifnull((select sum(i.becsult_ertek) " +
+                "from tulajdon as tu " +
+                "inner join ingatlan as i on i.ingatlan_azonosito = tu.ingatlan_azonosito " +
+                "where tu.adoszam = ? and tu.ingatlan_azonosito is not null), 0) " +
+                ") as total_value";
         try {
             Connection con = DriverManager.getConnection(url, "root", "");
             stmt = con.prepareStatement(query);
-            stmt.setInt(1, userDao.getUserByName(username).getTaxID());
+            int taxId = userDao.getUserByName(username).getTaxID();
+            stmt.setInt(1, taxId);
+            stmt.setInt(2, taxId);
             rs = stmt.executeQuery();
 
             if (rs.next()) {

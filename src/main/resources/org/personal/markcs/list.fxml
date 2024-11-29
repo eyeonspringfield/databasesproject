@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.personal.markcs.Control.ListController">
     <children>
-        <Button layoutX="112.0" layoutY="136.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
+        <Button layoutX="48.0" layoutY="136.0" mnemonicParsing="false" onAction="#editUserData" text="Adatok módosítása" />
         <TableView fx:id="reTable" layoutX="14.0" layoutY="286.0" prefHeight="375.0" prefWidth="694.0">
             <columns>
                 <TableColumn fx:id="reTypeCol" prefWidth="162.3999605178833" text="Jelleg" />
@@ -22,7 +22,10 @@
                 <TableColumn fx:id="reApproxValueCol" prefWidth="125.60003662109375" text="Becsült érték" />
             </columns>
         </TableView>
-        <Label layoutX="947.0" layoutY="74.0" text="Telkek" />
+        <Label layoutX="738.0" layoutY="75.0" text="Telkek" underline="true">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
         <TableView fx:id="plotTable" layoutX="738.0" layoutY="101.0" prefHeight="565.0" prefWidth="452.0">
             <columns>
                 <TableColumn fx:id="plotIdCol" prefWidth="86.4000244140625" text="Helyrajzi szám" />
@@ -31,9 +34,12 @@
                 <TableColumn fx:id="plotApproxValueCol" prefWidth="117.59991455078125" text="Becsült érték" />
             </columns>
         </TableView>
-        <Label layoutX="333.0" layoutY="253.0" text="Ingatlanok" />
-      <Button layoutX="347.0" layoutY="136.0" mnemonicParsing="false" onAction="#logout" text="Kijelentkezés" />
-      <Button layoutX="206.0" layoutY="183.0" mnemonicParsing="false" onAction="#showStatistics" text="Statisztikák megtekintése" />
+        <Label layoutX="15.0" layoutY="256.0" text="Ingatlanok" underline="true">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Button layoutX="48.0" layoutY="184.0" mnemonicParsing="false" onAction="#logout" text="Kijelentkezés" />
+      <Button layoutX="363.0" layoutY="136.0" mnemonicParsing="false" onAction="#showStatistics" text="Statisztikák megtekintése" />
       <Label layoutX="130.0" layoutY="26.0" text="Üdvözöljük, itt tekintheti meg a tulajdonban lévő ingatlanjait és telkeit! További statisztikákért kattintson a statisztikák megtekintése gombra!">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -43,7 +49,7 @@
          <children>
             <HBox prefHeight="70.0" prefWidth="266.0">
                <children>
-                  <VBox prefHeight="62.0" prefWidth="98.0">
+                  <VBox prefHeight="62.0" prefWidth="126.0">
                      <children>
                           <Label text="Felhasználónév:" />
                           <Label text="Lakcím:" />

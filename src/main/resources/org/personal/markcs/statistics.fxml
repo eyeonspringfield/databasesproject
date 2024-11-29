@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -37,5 +39,19 @@
          </children>
       </HBox>
       <Button layoutX="576.0" layoutY="189.0" mnemonicParsing="false" onAction="#returnToList" text="Vissza" />
+      <TableView layoutX="66.0" layoutY="312.0" prefHeight="282.0" prefWidth="304.0">
+        <columns>
+          <TableColumn prefWidth="153.5999755859375" text="Jelleg" />
+          <TableColumn prefWidth="150.40000915527344" text="Mennyiség" />
+        </columns>
+      </TableView>
+      <Label layoutX="66.0" layoutY="283.0" text="Ingatlanok mennyísége jelleg szerint" />
+      <Label layoutX="410.0" layoutY="283.0" text="Telkek mennyisége jelleg szerint" />
+      <TableView layoutX="410.0" layoutY="312.0" prefHeight="282.0" prefWidth="304.0">
+         <columns>
+            <TableColumn prefWidth="153.5999755859375" text="Jelleg" />
+            <TableColumn prefWidth="150.40000915527344" text="Mennyiség" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

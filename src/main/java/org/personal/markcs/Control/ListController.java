@@ -94,9 +94,7 @@ public class ListController {
         ObservableList<RealEstate> realEstateObservableList = FXCollections.observableArrayList();
         ObservableList<Plot> plotObservableList = FXCollections.observableArrayList();
         for(Ownership ownership : ownerships) {
-            System.out.println("ownership exists");
             if(ownership.getRealEstate() != null) {
-                System.out.println("real eastate exists");
                 realEstateObservableList.add(realEstateDao.getRealEstateById(realEstateDao.getRealEstateID(ownership.getRealEstate())));
             }else{
                 plotObservableList.add(plotDao.getPlotByPlotNumber(ownership.getPlot().getPlotNumber()));

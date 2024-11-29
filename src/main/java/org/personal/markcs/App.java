@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,14 +21,14 @@ public class App extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, InterruptedException {
         scene = new Scene(loadFXML("primary"), 1200, 675);
         Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
         stage.setScene(scene);
         stage.setTitle("IngatlanSzeged adatbáziskezelő");
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/favicon-purple.png"))));
 
-        stage.show();
+        Platform.runLater(stage::show);
     }
 
     public static void setRoot(String fxml) throws IOException {
