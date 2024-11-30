@@ -17,37 +17,63 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
     RealEstateDaoImpl realEstateDao = new RealEstateDaoImpl();
     @Override
     public boolean addOwnership(Ownership ownership, OwnershipType type) {
-        String query = null;
+        String insertQuery = null;
+        String checkQuery = "select sum(tulajdoni_hanyad) as t " +
+                "from tulajdon " +
+                "where helyrajzi_szam = ? " +
+                "and (ingatlan_azonosito = ? or ? is null)";
 
-        if(type == OwnershipType.PLOT_TYPE) {
-            query = "insert into tulajdon (adoszam, helyrajzi_szam, ingatlan_azonosito, tulajdonba_kerules_datuma, tulajdoni_hanyad) values (?, ?, NULL, ?, ?)";
-        }else if(type == OwnershipType.REAL_ESTATE_TYPE) {
-            query = "insert into tulajdon (adoszam, helyrajzi_szam, ingatlan_azonosito, tulajdonba_kerules_datuma, tulajdoni_hanyad) values (?, ?, ?, ?, ?)";
+        if (type == OwnershipType.PLOT_TYPE) {
+            insertQuery = "insert into tulajdon (adoszam, helyrajzi_szam, ingatlan_azonosito, tulajdonba_kerules_datuma, tulajdoni_hanyad) " +
+                    "values (?, ?, null, ?, ?)";
+        } else if (type == OwnershipType.REAL_ESTATE_TYPE) {
+            insertQuery = "insert into tulajdon (adoszam, helyrajzi_szam, ingatlan_azonosito, tulajdonba_kerules_datuma, tulajdoni_hanyad) " +
+                    "values (?, ?, ?, ?, ?)";
         }
-        try{
-            Connection con = DriverManager.getConnection(url, "root", "");
-            stmt = con.prepareStatement(query);
 
-            stmt.setInt(1, ownership.getUser().getTaxID());
-            stmt.setString(2, ownership.getPlot().getPlotNumber());
-            if(type == OwnershipType.REAL_ESTATE_TYPE) {
-                System.out.println("id" + ownership.getRealEstate().getID());
-                stmt.setInt(3, ownership.getRealEstate().getID());
-                stmt.setDate(4, Date.valueOf(ownership.getDateOfPurchase()));
-                stmt.setDouble(5, ownership.getPartOfOwnership());
-            }else if(type == OwnershipType.PLOT_TYPE) {
-                stmt.setDate(3, Date.valueOf(ownership.getDateOfPurchase()));
-                stmt.setDouble(4, ownership.getPartOfOwnership());
+        try (Connection con = DriverManager.getConnection(url, "root", "")) {
+            try (PreparedStatement checkStmt = con.prepareStatement(checkQuery)) {
+                checkStmt.setString(1, ownership.getPlot().getPlotNumber());
+                if (type == OwnershipType.REAL_ESTATE_TYPE) {
+                    checkStmt.setInt(2, ownership.getRealEstate().getID());
+                    checkStmt.setInt(3, ownership.getRealEstate().getID());
+                } else {
+                    checkStmt.setNull(2, java.sql.Types.INTEGER);
+                    checkStmt.setNull(3, java.sql.Types.INTEGER);
+                }
+
+                ResultSet rs = checkStmt.executeQuery();
+                double currentTotal = 0.0;
+                if (rs.next()) {
+                    currentTotal = rs.getDouble("t");
+                }
+
+                if (currentTotal + ownership.getPartOfOwnership() > 1.0) {
+                    return false;
+                }
             }
 
-            int rowsAffected = stmt.executeUpdate();
+            try (PreparedStatement insertStmt = con.prepareStatement(insertQuery)) {
+                insertStmt.setInt(1, ownership.getUser().getTaxID());
+                insertStmt.setString(2, ownership.getPlot().getPlotNumber());
+                if (type == OwnershipType.REAL_ESTATE_TYPE) {
+                    insertStmt.setInt(3, ownership.getRealEstate().getID());
+                    insertStmt.setDate(4, Date.valueOf(ownership.getDateOfPurchase()));
+                    insertStmt.setDouble(5, ownership.getPartOfOwnership());
+                } else if (type == OwnershipType.PLOT_TYPE) {
+                    insertStmt.setDate(3, Date.valueOf(ownership.getDateOfPurchase()));
+                    insertStmt.setDouble(4, ownership.getPartOfOwnership());
+                }
 
-            return rowsAffected > 0;
+                int rowsAffected = insertStmt.executeUpdate();
+                return rowsAffected > 0;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
+
 
     @Override
     public Ownership getOwnershipByTaxId(String TaxId) {
@@ -106,34 +132,6 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
         }catch(Exception e){
             e.printStackTrace();
         }
-        return null;
-    }
-
-    public Ownership getOwnershipByRealEstateId(int realEstateId) {
-        String query = "select * from tulajdon where ingatlan_azonosito = ?";
-        try{
-            Connection con = DriverManager.getConnection(url, "root", "");
-            stmt = con.prepareStatement(query);
-            stmt.setInt(1, realEstateId);
-            rs = stmt.executeQuery();
-            Ownership ownership = new Ownership();
-            if(rs.next()) {
-                ownership.setUser(userDao.getUserByTaxId(rs.getInt("adoszam")));
-                ownership.setPlot(plotDao.getPlotByPlotNumber(rs.getString("helyrajzi_szam")));
-                ownership.setRealEstate(realEstateDao.getRealEstateById(rs.getInt("ingatlan_azonosito")));
-                ownership.setDateOfPurchase(rs.getDate("tulajdonba_kerules_datuma").toLocalDate());
-                ownership.setPartOfOwnership(rs.getInt("tulajdoni_hanyad"));
-            }
-            return ownership;
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Ownership getOwnershipByPlotNumber(String plotNumber) {
-        // Fetch Ownership record where plot number matches the given plot.
-        // Implementation depends on your query structure.
         return null;
     }
 

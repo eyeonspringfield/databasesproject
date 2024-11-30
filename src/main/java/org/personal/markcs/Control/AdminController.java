@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.IntegerStringConverter;
 import org.personal.markcs.App;
 import org.personal.markcs.DAO.OwnershipDaoImpl;
 import org.personal.markcs.DAO.PlotDaoImpl;
@@ -73,7 +75,7 @@ public class AdminController {
     @FXML
     private TableColumn<RealEstate, String> reTypeCol;
     @FXML
-    private TableColumn<RealEstate, Date> reDateOfBuildingCol;
+    private TableColumn<RealEstate, Integer> reDateOfBuildingCol;
     @FXML
     private TableColumn<RealEstate, Integer> rePostalCodeCol;
     @FXML
@@ -91,9 +93,9 @@ public class AdminController {
     @FXML
     private TableColumn<Plot, String> plotTypeCol;
     @FXML
-    private TableColumn<Plot, String> plotSizeCol;
+    private TableColumn<Plot, Integer> plotSizeCol;
     @FXML
-    private TableColumn<Plot, String> plotApproxValueCol;
+    private TableColumn<Plot, Integer> plotApproxValueCol;
     @FXML
     private TableColumn<Plot, Void> actionColumnPlot;
     @FXML
@@ -133,16 +135,76 @@ public class AdminController {
         List<User> users = userDao.getAllUsers();
 
         reTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        reTypeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        reTypeCol.setOnEditCommit(event -> {
+            RealEstate realEstate = event.getRowValue();
+            realEstate.setType(event.getNewValue());
+            editRealEstate(realEstate, "type", event.getNewValue());
+        });
         reDateOfBuildingCol.setCellValueFactory(new PropertyValueFactory<>("timeOfConstruction"));
+        reDateOfBuildingCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        reDateOfBuildingCol.setOnEditCommit(event -> {
+            RealEstate realEstate = event.getRowValue();
+            realEstate.setTimeOfConstruction(event.getNewValue());
+            editRealEstate(realEstate, "timeOfConstruction", event.getNewValue());
+        });
         rePostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        rePostalCodeCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        rePostalCodeCol.setOnEditCommit(event -> {
+            RealEstate realEstate = event.getRowValue();
+            realEstate.setPostalCode(event.getNewValue());
+            editRealEstate(realEstate, "postalCode", event.getNewValue());
+        });
         reSettlementCol.setCellValueFactory(new PropertyValueFactory<>("settlement"));
+        reSettlementCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        reSettlementCol.setOnEditCommit(event -> {
+            RealEstate realEstate = event.getRowValue();
+            realEstate.setSettlement(event.getNewValue());
+            editRealEstate(realEstate, "settlement", event.getNewValue());
+        });
         reStreetAndHouseCol.setCellValueFactory(new PropertyValueFactory<>("streetAndHouseNumber"));
+        reStreetAndHouseCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        reStreetAndHouseCol.setOnEditCommit(event -> {
+            RealEstate realEstate = event.getRowValue();
+            realEstate.setStreetAndHouseNumber(event.getNewValue());
+            editRealEstate(realEstate, "streetAndHouseNumber", event.getNewValue());
+        });
         reApproxValueCol.setCellValueFactory(new PropertyValueFactory<>("approxValue"));
+        reApproxValueCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        reApproxValueCol.setOnEditCommit(event -> {
+            RealEstate realEstate = event.getRowValue();
+            realEstate.setApproxValue(event.getNewValue());
+            editRealEstate(realEstate, "approxValue", event.getNewValue());
+        });
 
         plotNumberCol.setCellValueFactory(new PropertyValueFactory<>("plotNumber"));
+        plotNumberCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        plotNumberCol.setOnEditCommit(event -> {
+            Plot plot = event.getRowValue();
+            plot.setPlotNumber(event.getNewValue());
+            editPlot(plot, "plotNumber", event.getNewValue());
+        });
         plotTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        plotTypeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        plotTypeCol.setOnEditCommit(event -> {
+            Plot plot = event.getRowValue();
+            plot.setType(event.getNewValue());
+            editPlot(plot, "type", event.getNewValue());
+        });
         plotSizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+        plotSizeCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        plotSizeCol.setOnEditCommit(event -> {
+            Plot plot = event.getRowValue();
+            plot.setSize(event.getNewValue());
+            editPlot(plot, "size", event.getNewValue());
+        });
         plotApproxValueCol.setCellValueFactory(new PropertyValueFactory<>("approxValue"));
+        plotApproxValueCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        plotApproxValueCol.setOnEditCommit(event -> {
+            Plot plot = event.getRowValue();
+            plot.setApproxValue(event.getNewValue());
+            editPlot(plot, "approxValue", event.getNewValue());
+        });
 
         usernameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         taxIdCol.setCellValueFactory(new PropertyValueFactory<>("taxID"));
@@ -159,7 +221,9 @@ public class AdminController {
                 plotObservableList.add(plotDao.getPlotByPlotNumber(ownership.getPlot().getPlotNumber()));
             }
         }
+        reTableView.setEditable(true);
         reTableView.setItems(realEstateObservableList);
+        plotTableView.setEditable(true);
         plotTableView.setItems(plotObservableList);
         userTableView.setItems(userObservableList);
 
@@ -361,9 +425,41 @@ public class AdminController {
         ownership.setPartOfOwnership(Float.parseFloat(plotPercentOfOwnership.getText()));
         ownership.setDateOfPurchase(plotDateOfPurchase.getValue());
 
-        plotDao.addPlot(plot);
-        ownershipDao.addOwnership(ownership, OwnershipType.PLOT_TYPE);
+        boolean plotSuccess = plotDao.addPlot(plot);
+        boolean ownershipSuccess = ownershipDao.addOwnership(ownership, OwnershipType.PLOT_TYPE);
+        if(!plotSuccess || !ownershipSuccess){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Sikertelen volt a telek hozzáadása");
+            alert.showAndWait();
+            return;
+        }
 
+        refreshData();
+    }
+
+    private void editRealEstate(RealEstate realEstate, String fieldName, Object newValue) {
+        boolean success = realEstateDao.updateRealEstate(realEstate);
+        if (!success) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sikertelen módosítás");
+            alert.setHeaderText(null);
+            alert.setContentText("Nem sikerült módosítani az elemet!");
+            alert.showAndWait();
+        }
+        refreshData();
+    }
+
+    private void editPlot(Plot plot, String fieldName, Object newValue) {
+        boolean success = plotDao.updatePlot(plot);
+        if (!success) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sikertelen módosítás");
+            alert.setHeaderText(null);
+            alert.setContentText("Nem sikerült módosítani az elemet!");
+            alert.showAndWait();
+        }
         refreshData();
     }
 

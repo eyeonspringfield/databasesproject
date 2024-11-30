@@ -108,4 +108,30 @@ public class RealEstateDaoImpl implements RealEstateDaoInterface{
         }
         return false;
     }
+
+    public boolean updateRealEstate(RealEstate realEstate) {
+        String query = "update ingatlan set jelleg = ?, " +
+                "epites_eve = ?, " +
+                "iranyitoszam = ?, " +
+                "telepules = ?, " +
+                "kozterulet_es_hazszam = ?, " +
+                "becsult_ertek = ? " +
+                "where ingatlan_azonosito = ?";
+        try{
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, realEstate.getType());
+            stmt.setInt(2, realEstate.getTimeOfConstruction());
+            stmt.setInt(3, realEstate.getPostalCode());
+            stmt.setString(4, realEstate.getSettlement());
+            stmt.setString(5, realEstate.getStreetAndHouseNumber());
+            stmt.setInt(6, realEstate.getApproxValue());
+            stmt.setInt(7, realEstate.getID());
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

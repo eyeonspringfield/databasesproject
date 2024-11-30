@@ -75,4 +75,24 @@ public class PlotDaoImpl implements PlotDaoInterface{
         }
         return false;
     }
+
+    public boolean updatePlot(Plot plot) {
+        String query = "update telek set jelleg = ?, " +
+                "meret = ?, " +
+                "becsult_ertek = ? " +
+                "where helyrajzi_szam = ?";
+        try{
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, plot.getType());
+            stmt.setInt(2, plot.getSize());
+            stmt.setInt(3, plot.getApproxValue());
+            stmt.setString(4, plot.getPlotNumber());
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
