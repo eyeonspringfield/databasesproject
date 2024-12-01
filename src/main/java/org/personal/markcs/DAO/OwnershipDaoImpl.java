@@ -1,12 +1,17 @@
 package org.personal.markcs.DAO;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.personal.markcs.Model.Ownership;
 import org.personal.markcs.Model.OwnershipType;
+import org.personal.markcs.Model.RealEstate;
 import org.personal.markcs.Model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OwnershipDaoImpl implements OwnershipDaoInterface{
     PreparedStatement stmt;
@@ -234,5 +239,63 @@ public class OwnershipDaoImpl implements OwnershipDaoInterface{
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public ObservableList<Map<String, Object>> getListOfRealEstatesByType(String username){
+        String query = """
+                select i.jelleg, count(*) as count
+                from tulajdon t
+                join ingatlan i on t.ingatlan_azonosito = i.ingatlan_azonosito
+                where t.adoszam = ?
+                group by i.jelleg;""";
+        ObservableList<Map<String, Object>> result = FXCollections.observableArrayList();
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            int taxId = userDao.getUserByName(username).getTaxID();
+            stmt.setInt(1, taxId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                row.put("jelleg", rs.getString("jelleg"));
+                row.put("count", rs.getInt("count"));
+                result.add(row);
+            }
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ObservableList<Map<String, Object>> getListOfPlotsByType(String username){
+        String query = """
+                select te.jelleg, count(*) as count
+                from tulajdon tu
+                join telek te on tu.helyrajzi_szam = te.helyrajzi_szam
+                where tu.adoszam = ? and tu.ingatlan_azonosito is null
+                group by te.jelleg;""";
+        ObservableList<Map<String, Object>> result = FXCollections.observableArrayList();
+        try {
+            Connection con = DriverManager.getConnection(url, "root", "");
+            stmt = con.prepareStatement(query);
+            int taxId = userDao.getUserByName(username).getTaxID();
+            stmt.setInt(1, taxId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                row.put("jelleg", rs.getString("jelleg"));
+                row.put("count", rs.getInt("count"));
+                result.add(row);
+            }
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -26,6 +26,19 @@ public class PrimaryController {
     UserDaoImpl dao = new UserDaoImpl();
 
     @FXML
+    private void initialize() throws IOException {
+        boolean isConnected = dao.testConnection();
+        if(!isConnected) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sikertelen adatbázis csatlakozás");
+            alert.setHeaderText(null);
+            alert.setContentText("Az applikáció nem tudott csatlakozni az adatbázis szerverhez! Kérjük, indítsa el az adatbázis szervert, és indítsa újra az applikációt!");
+            alert.showAndWait();
+            Platform.exit();
+        }
+    }
+
+    @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }

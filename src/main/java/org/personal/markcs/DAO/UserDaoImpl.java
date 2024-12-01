@@ -206,4 +206,13 @@ public class UserDaoImpl implements UserDaoInterface {
         }
         return false;
     }
+
+    public boolean testConnection() {
+        try (Connection connection = DriverManager.getConnection(url, "root", "")) {
+            return connection != null && !connection.isClosed();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

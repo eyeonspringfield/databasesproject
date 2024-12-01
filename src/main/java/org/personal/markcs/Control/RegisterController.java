@@ -12,7 +12,6 @@ import org.personal.markcs.DAO.UserDaoImpl;
 import org.personal.markcs.Model.User;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class RegisterController {
     @FXML

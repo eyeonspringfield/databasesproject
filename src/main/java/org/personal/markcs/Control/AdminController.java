@@ -15,7 +15,6 @@ import org.personal.markcs.DAO.UserDaoImpl;
 import org.personal.markcs.Model.*;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 
 public class AdminController {
@@ -304,7 +303,7 @@ public class AdminController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Jóváhagyás szükséges!");
         alert.setHeaderText(null);
-        alert.setContentText("Biztosan szeretné kitörölni az ingatlant? Ez a folyamat visszafordíthatatlan!");
+        alert.setContentText("Biztosan szeretné kitörölni a telket? Ez a folyamat visszafordíthatatlan!");
         ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
 
         if (result == ButtonType.OK) {
